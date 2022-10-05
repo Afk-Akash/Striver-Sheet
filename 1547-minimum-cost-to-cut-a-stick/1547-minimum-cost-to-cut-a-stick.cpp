@@ -7,9 +7,9 @@ public:
         int N = cuts.size();
         vector<vector<int>> dp(N+1, vector<int>(N+1, 0));
         // return fun(1, N-2, cuts, dp);
-        for(int last = 0; last <= N-2; last++){
-            for(int ind = last + 1; ind <= N-2; ind++) dp[ind][last] = 0;
-        }
+        // for(int last = 0; last <= N-2; last++){
+        //     for(int ind = last + 1; ind <= N-2; ind++) dp[ind][last] = 0;
+        // }
         
         for(int ind = N - 2; ind >= 1; ind--){
             for(int last = ind; last <= N-2; last++){
