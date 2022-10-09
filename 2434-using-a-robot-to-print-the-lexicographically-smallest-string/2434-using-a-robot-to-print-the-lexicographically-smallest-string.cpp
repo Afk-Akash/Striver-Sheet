@@ -17,14 +17,13 @@ public:
             st.push(s[i]);
             freq[s[i]-'a']--;
             while(st.size() and st.top() <= low(freq)){
-                
-                ans += st.top();
+                ans.push_back(st.top());
                 st.pop();
             }
             
         }
         while(st.size()){
-            ans += st.top();
+            ans.push_back(st.top());
             st.pop();
         }
         return ans;
