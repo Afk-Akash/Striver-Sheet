@@ -16,6 +16,7 @@ public:
     
     int fun(int i, int j, string &s, vector<vector<int>> &dp){
         if(isPalindrome(s,i,j))return 1;
+        if(i > j) return 0;
         if(i == j) return 1;
         
         if(dp[i][j] != -1) return dp[i][j];
@@ -23,10 +24,11 @@ public:
         
         for(int ind = i; ind < j; ind++){
             if(isPalindrome(s, i,ind)){
-                int l = fun(i, ind, s, dp);
-                int r = fun(ind+1, j, s, dp);
+                // int l = fun(i, ind, s, dp);
+                // int r = fun(ind+1, j, s, dp);
+                int cost = 1 + fun(ind + 1, j, s, dp);
             
-                mini = min(mini, l + r);
+                mini = min(mini, cost);
             }
         }
         return dp[i][j] = mini;
