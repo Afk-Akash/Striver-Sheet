@@ -2,8 +2,18 @@ class Solution {
 public:
     int maxSumAfterPartitioning(vector<int>& arr, int k) {
         int n = arr.size();
-        vector<int> dp(n+1, -1);
-        return fun(0, arr, k, dp);
+        vector<int> dp(n+1, 0);
+        // return fun(0, arr, k, dp);
+        for(int i = n - 1; i >= 0; i--){
+                int maxi = 0, temp = 0;
+            for(int j = i; j < min(i+k, n); j++){
+                maxi = max(maxi, arr[j]);
+                int cost = maxi * (j - i + 1) + dp[j+1];
+                temp = max(temp, cost);
+            }
+            dp[i] = temp;
+        }
+        return dp[0];
     }
     
     int fun(int ind, vector<int> &v, int &k, vector<int> &dp){
