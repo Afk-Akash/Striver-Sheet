@@ -9,7 +9,6 @@ public:
     
     int minCut(string s) {
         int n = s.size();
-        vector<vector<int>> ddp(n+1, vector<int> (n+1, -1));
         vector<int> dp(n+1, -1);
         return fun(0, s, dp)-1;
         
