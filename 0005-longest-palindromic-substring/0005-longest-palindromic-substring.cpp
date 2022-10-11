@@ -1,6 +1,6 @@
 class Solution {
     string ans;
-    vector<vector<int>> dp;
+    vector<vector<bool>> dp;
 public:
     Solution(){
         ans = "";
@@ -9,8 +9,18 @@ public:
         int n = s.size();
         if(n <= 1) return s;
         ans = s[0];
-        dp.resize(n+1, vector<int>(n+1,-1));
-        fun(0, n-1, s);
+        dp.resize(n+1, vector<bool>(n+1,0));
+        for(int i = 0; i < n; i++)dp[i][i] = 1;
+        for(int i = n - 2; i >= 0; i--){
+            for(int j = i + 1; j < n; j++){
+                if(s[i] == s[j]){
+                    if(j - i == 1 or dp[i+1][j-1]){
+                        dp[i][j] = true;
+                        if(ans.size() < j-i + 1) ans = s.substr(i, j-i+1);
+                    }
+                }
+            }
+        }
         return ans;
     }
     
