@@ -2,7 +2,7 @@ class Solution {
     int mod = 1000000000 + 7;
 public:
     int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
-        vector<vector<vector<int>>> dp(51, vector<vector<int>> (51, vector<int>(51, -1)));
+        vector<vector<vector<int>>> dp(m+1, vector<vector<int>> (n+1, vector<int>(maxMove+1, -1)));
         return fun(startRow, startColumn, maxMove, m, n, dp)%mod;
     }
     int fun(int i, int j, int move, int row, int col, vector<vector<vector<int>>> &dp){
