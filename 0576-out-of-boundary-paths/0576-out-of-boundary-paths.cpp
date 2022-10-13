@@ -15,6 +15,6 @@ public:
         int up = fun(i-1, j, move - 1, row, col, dp);
         int down = fun(i+1, j, move -1, row, col, dp);
         
-        return dp[i][j][move] = (1LL*left %mod+ right %mod+ up%mod + down%mod )%mod;
+        return dp[i][j][move] = (1LL*left+ right+ up + down )%mod;
     }
 };
