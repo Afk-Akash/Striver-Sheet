@@ -1,22 +1,30 @@
 class Solution {
+    
 public:
-    int deleteString(string s) {
-        int n = s.size();
-        vector<vector<int>> LCS(n+1, vector<int> (n+1, 0));
-        vector<int> dp(n, 1);       //minmum 1 way of deleting string
+    int fun(int ind, string_view s, vector<int> &dp){
+        if(dp[ind] != -1) return dp[ind];
         
-        for(int i = n-1; i >= 0; i--){
-            for(int j = i + 1; j < n; j++){
-                if(s[i] == s[j]){
-                    LCS[i][j] = 1 + LCS[i+1][j+1];
-                }
-                if(LCS[i][j] >= j - i){             //it will tell if length of common substring is greater
-                    dp[i] = max(dp[i], 1 + dp[j]);  //than or equal to j - i means there is no mid element 
-                }                                       //in between them so we can delete
+        int ans = 1;
+        for(int i = 1; i <= (s.size() - ind)/2; i++){
+            if(s.substr(ind, i) == s.substr(ind+i, i)){
+                int k = 1 + fun(ind + i, s, dp);
+                ans = max(ans, k);
             }
         }
-        return dp[0];
+        return dp[ind] = ans;
+    }
+    void optimize(string_view s, vector<int> &dp){
+        int n = s.size();
+        int k = n - 1;
+        
+        while(k > 0 and s[k] == s[k-1])k--;
+        for(int i = k + 1; i < n; i++)dp[i] = n - i;
     }
     
-  
+    int deleteString(string s) {
+        int n = s.size();
+        vector<int> dp(n+1, -1);
+        optimize(s,dp);
+        return fun(0, s, dp);
+    }
 };
