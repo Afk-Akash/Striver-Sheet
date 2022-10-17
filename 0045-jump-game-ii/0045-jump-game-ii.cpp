@@ -14,7 +14,19 @@ public:
     
     int jump(vector<int>& nums) {
         int n = nums.size();
-        vector<int> dp(n+1, -1);
-        return fun(0, nums, dp);
+        vector<int> dp(n+1, 0);
+        // return fun(0, nums, dp);
+        
+        for(int i = n - 2; i >= 0; i--){
+            int k = nums[i];
+            int mini = 1e4;
+            
+            for(int j = i+1; j < min(i+k+1,n); j++){
+                mini = min(dp[j] , mini);
+            }
+            
+            dp[i] = mini+1;
+        }
+        return dp[0];
     }
 };
