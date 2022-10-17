@@ -12,7 +12,7 @@ public:
             if(neg_sum > 0)neg_sum = 0;
             mini = min(mini, neg_sum);
         }
-        total = accumulate(nums.begin(), nums.end(), 0);
+        total = accumulate(nums.begin()+1, nums.end(), nums[0]);
         if(flag) return *max_element(nums.begin(), nums.end());
         return max(ans, total - mini);
         
