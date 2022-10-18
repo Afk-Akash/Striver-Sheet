@@ -1,15 +1,26 @@
 class Solution {
-    int maxx = INT_MIN;
 public:
-    int fun(vector<int> &nums, int ind){
-        if(ind < 0) return 0;
-        int ans = nums[ind] + fun(nums, ind - 1);
-        maxx = max(ans, maxx);
-        return ans > 0 ? ans : 0;
-    }
     int maxSubArray(vector<int>& nums) {
-       int n = nums.size();
-         fun(nums, n - 1);
-        return maxx;
+        return fun(nums, 0, nums.size() - 1);
+    }
+    
+    int fun(vector<int> &nums, int l, int r){
+        if(l > r) return  INT_MIN;
+        int mid = (l + r)/2;
+        int left = 0, right = 0;
+        for( int curr = 0,  i = mid - 1; i >= l ; i--)
+        {
+            curr += nums[i];
+            left = max(left, curr);
+        }
+        for(int curr = 0, i = mid + 1 ; i <= r; i++){
+            curr += nums[i];
+            right = max(right, curr);
+        }
+        
+        int fromLeft = fun(nums, l, mid - 1);
+        int fromRight = fun(nums, mid + 1, r);
+        
+        return max(left + right + nums[mid] , max(fromLeft, fromRight));
     }
 };
