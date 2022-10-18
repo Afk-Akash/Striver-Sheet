@@ -10,21 +10,22 @@
  * };
  */
 class Solution {
-    pair<int,int> fun(TreeNode* root){
-        if(root == NULL) return {0,0};
-        pair<int,int> left, right;
-        
-        left = fun(root -> left);
-        right = fun(root -> right);
-        
-        pair<int,int> pair;
-        pair.first = max(left.first, left.second) + max(right.first , right.second);
-        pair.second = root -> val + left.first + right.first;
-        return pair;
-    }
 public:
     int rob(TreeNode* root) {
-        auto p = fun(root);
-        return max(p.first, p.second);
+        int robMax = 0, notRobMax = 0;
+        return fun(root, robMax, notRobMax);
+    }
+    
+    int fun(TreeNode* node, int &rob, int &notRob){
+        if(!node) return 0;
+        
+        int leftrob = 0, leftnotrob = 0, rightrob = 0, rightnotrob = 0;
+        int left = fun(node -> left, leftrob, leftnotrob);
+        int right = fun(node -> right, rightrob, rightnotrob);
+        
+        rob = node -> val + leftnotrob + rightnotrob;
+        notRob = left + right;
+        
+        return max(rob, notRob);
     }
 };
