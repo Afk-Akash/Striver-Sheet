@@ -10,17 +10,21 @@
  * };
  */
 class Solution {
-    unordered_map<TreeNode*, int> dp;
+    pair<int,int> fun(TreeNode* root){
+        if(root == NULL) return {0,0};
+        pair<int,int> left, right;
+        
+        left = fun(root -> left);
+        right = fun(root -> right);
+        
+        pair<int,int> pair;
+        pair.first = max(left.first, left.second) + max(right.first , right.second);
+        pair.second = root -> val + left.first + right.first;
+        return pair;
+    }
 public:
     int rob(TreeNode* root) {
-        if(root == NULL ) return 0;
-        if(dp[root] > 0) return dp[root];
-        int val = 0;
-        if(root -> left)
-            val = rob(root -> left -> left) + rob(root -> left -> right);
-        if(root -> right)
-            val += rob(root -> right -> left) + rob(root -> right -> right);
-        
-        return dp[root] = max(val + root -> val, rob(root -> left) + rob(root -> right));
+        auto p = fun(root);
+        return max(p.first, p.second);
     }
 };
