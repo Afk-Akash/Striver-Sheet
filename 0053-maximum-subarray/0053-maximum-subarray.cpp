@@ -4,7 +4,6 @@ public:
     int fun(vector<int> &nums, int ind){
         if(ind < 0) return 0;
         int ans = nums[ind] + fun(nums, ind - 1);
-        cout<<ans<<" ";
         maxx = max(ans, maxx);
         return ans > 0 ? ans : 0;
     }
