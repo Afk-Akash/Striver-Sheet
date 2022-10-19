@@ -11,8 +11,22 @@ public:
     
     bool wordBreak(string s, vector<string>& wordDict) {
         unordered_set<string> set;
+        int n = s.size();
         for(auto &word : wordDict) set.insert(word);
-        vector<int> dp(s.size(), -1);
-        return fun(0, s, set, dp);
+        vector<int> dp(s.size()+1, 1);
+        // return fun(0, s, set, dp);
+        for(int i = n-1; i >= 0; i--){
+            bool flag = true;
+            for(int len = 1; len <= s.size() - i; len++){
+                if(set.find(s.substr(i,len)) != set.end() and dp[i+len]==1) {
+                    dp[i] = true;
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag)
+            dp[i] = false;
+        }
+        return dp[0];
     }
 };
