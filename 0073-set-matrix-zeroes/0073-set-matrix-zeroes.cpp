@@ -2,19 +2,25 @@ class Solution {
 public:
     void setZeroes(vector<vector<int>>& mat) {
         int n = mat.size(), m = mat[0].size();
-        unordered_set<int> row, col;
+        bool row = 0, col = 0;
         for(int i = 0 ; i < n; i++){
             for(int j = 0; j < m; j++){
                 if(mat[i][j] == 0){
-                    row.insert(i);
-                    col.insert(j);
+                    if(i == 0)row = true;
+                    if(j == 0)col = true;
+                    mat[i][0] = 0;
+                    mat[0][j] = 0;
                 }
             }
         }
-        for(auto & a: row){
-            for(int i = 0; i < m; i++)mat[a][i] = 0;
+        for(int i = 1; i < m; i++){
+            if(mat[0][i] == 0)for(int j = 0; j < n; j++)mat[j][i] = 0;
         }
-        for(auto & a : col)
-            for(int i = 0; i < n; i++)mat[i][a] = 0;
+        for(int i = 1; i < n; i++){
+            if(mat[i][0] == 0)for(int j = 0; j < m; j++)mat[i][j] = 0;
+        }
+        if(mat[0][0] == 0 and col)for(int j = 0; j < n; j++)mat[j][0] = 0;
+        if(mat[0][0] == 0 and row)for(int j = 0; j < m; j++)mat[0][j] = 0;
+
     }
 };
