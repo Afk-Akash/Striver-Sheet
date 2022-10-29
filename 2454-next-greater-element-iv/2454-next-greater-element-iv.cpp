@@ -5,17 +5,11 @@ public:
         vector<int> ans(n, -1);
         
         if(n==1) return {-1};
-        if(n <= 2) return {-1,-1};
+        if(n == 2) return {-1,-1};
         stack<int> st;
-        map<int,vector<int>> mp;
+        unordered_map<int,vector<int>> mp;
         
-//         st.push(n-1);
-//         if(nums[n-1] <= nums[n-2]){
-//             st.pop();
-//             st.push(n-2);
-//             mp[n-2].push_back(n-1);
-//         }else st.push(n-2);
-        
+
         for(int i = n-1; i >= 0; i--){
             while(st.size() and nums[st.top()] <= nums[i]){
                 // cout<<"ak "<<i<<endl;
