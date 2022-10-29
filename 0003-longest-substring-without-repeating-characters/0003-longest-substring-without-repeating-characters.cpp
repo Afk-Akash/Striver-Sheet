@@ -3,14 +3,14 @@ public:
     int lengthOfLongestSubstring(string s) {
         int n = s.size();
         int left = 0, right = 0;
-        vector<int> ff(256,0);
+        vector<int> ff(256,-1);
         int ans = 0;
         while(right < n){
-            while(ff[s[right]]){
-                ff[s[left]]--;
-                left++;
+            if(ff[s[right]] != -1){
+                
+                left = max(left, ff[s[right]]+1);
             }
-            ff[s[right]]++;
+            ff[s[right]] = right;
             ans = max(ans, right-left+1);
             right++;
         }
