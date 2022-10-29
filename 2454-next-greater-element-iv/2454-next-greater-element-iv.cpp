@@ -7,7 +7,7 @@ public:
         if(n==1) return {-1};
         if(n == 2) return {-1,-1};
         stack<int> st;
-        unordered_map<int,vector<int>> mp;
+        vector<vector<int>> mp(n);
         
 
         for(int i = n-1; i >= 0; i--){
