@@ -5,15 +5,9 @@ public:
         if(!l2) return l1;
         if(!l1) return l2;
         ListNode * p = l1, * q = l2, *head = NULL;
-        if(l1 -> val < l2 -> val){
-            head = l1;
-            p = l1->next;
-        }
-        else {
-            head = l2;
-            q = l2 -> next;
-        }
-        ListNode* t = head;
+     
+        ListNode* t = new ListNode();
+        head = t;
         while(p and q){
             if(p -> val < q -> val){
                 t -> next = p;
@@ -27,6 +21,6 @@ public:
         }
         if(p) t -> next = p;
         else t -> next = q;
-        return head;
+        return head->next;
     }
 };
