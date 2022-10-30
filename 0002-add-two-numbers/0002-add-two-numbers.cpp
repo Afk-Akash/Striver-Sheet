@@ -6,8 +6,16 @@ public:
         ListNode* p = dummy;
         int carry = 0;
         
-        while(l1 and l2){
-            int temp = l1 -> val + l2 -> val + carry;
+        while(l1 or l2){
+            int temp = carry;
+            if(l1){
+                 temp += l1 -> val;
+                l1 = l1 -> next;
+            }
+            if(l2) {
+                temp += l2 -> val;
+                l2 = l2 -> next;
+            }
             
             if(temp <= 9){
                 ListNode* t = new ListNode(temp);
@@ -20,41 +28,8 @@ public:
                 p = p -> next;
                 carry = 1;
             }
-            l1 = l1 -> next;
-            l2 = l2 -> next;
         }
-        if(l1){
-            while(l1){
-                int temp = l1 -> val + carry;
-                if(temp <= 9){
-                    p -> next = new ListNode(temp);
-                    p = p->next;
-                    carry = 0;
-                }else{
-                    p ->next = new ListNode(temp%10);
-                    p = p -> next;
-                    carry = 1;
-                }
-                l1 = l1 ->  next;
-            }
-            
-        }
-         if(l2){
-            while(l2){
-                int temp = l2 -> val + carry;
-                if(temp <= 9){
-                    p -> next = new ListNode(temp);
-                    p = p->next;
-                    carry = 0;
-                }else{
-                    p ->next = new ListNode(temp%10);
-                    p = p -> next;
-                    carry = 1;
-                }
-                l2 = l2 ->  next;
-            }
-            
-        }
+
         if(carry) p -> next = new ListNode(1,NULL);
         return dummy->next;
     }
