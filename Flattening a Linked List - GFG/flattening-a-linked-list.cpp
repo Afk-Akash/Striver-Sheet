@@ -92,33 +92,54 @@ int main(void) {
 
 // } Driver Code Ends
 
+
+/* Node structure  used in the program
+
+struct Node{
+	int data;
+	struct Node * next;
+	struct Node * bottom;
+	
+	Node(int x){
+	    data = x;
+	    next = NULL;
+	    bottom = NULL;
+	}
+	
+};
+*/
+
+/*  Function which returns the  root of 
+    the flattened linked list. */
+Node* merge(Node* a , Node* b){
+    Node * dummy = new Node(0);
+    Node* ptr = dummy;
+    
+    while(a and b){
+        if(a -> data < b -> data){
+            Node * t = new Node(a -> data);
+            ptr -> bottom = t;
+            a = a -> bottom;
+        }else{
+            Node* t = new Node(b -> data);
+            ptr -> bottom = t;
+            b = b -> bottom;
+        }
+        ptr = ptr -> bottom;
+    }
+    if(a) ptr -> bottom = a;
+    if(b) ptr -> bottom = b;
+    return dummy -> bottom;
+}
+    
 Node *flatten(Node *root)
 {
-   Node * p = root,* head = root, *temp;
-   
-   while(p){
-       
-       p = p -> next;
-       temp = new Node(0);
-       Node * ptr = temp;
-       Node * a= head, * b = p;
-       ;
-       while(a and b){
-           if(a -> data < b -> data){
-               Node * t = new Node(a->data);
-               ptr -> bottom = t;
-               a = a -> bottom;
-           }else{
-               Node* t = new Node(b -> data);
-               ptr -> bottom = t;
-               b = b->bottom;
-           }
-           ptr = ptr -> bottom;
-       }
-       if(a)ptr -> bottom = a;
-       if(b) ptr -> bottom = b;
-       head = temp -> bottom;
+    Node* temp = root;
+    root = root -> next;
+   while(root){
+       temp = merge(temp , root);
+       root = root -> next;
    }
-   return head;
+   return temp;
 }
 
