@@ -92,37 +92,33 @@ int main(void) {
 
 // } Driver Code Ends
 
-
-/* Node structure  used in the program
-	
-	Node(int x){
-	    data = x;
-	    next = NULL;
-	    bottom = NULL;
-	}
-	
-};
-*/
 Node *flatten(Node *root)
 {
-    Node * p = root;
-   vector<int> v ;
+   Node * p = root,* head = root, *temp;
+   
    while(p){
-       Node * q = p;
-       while(q){
-           v.push_back(q ->data);
-           q = q -> bottom;
-       }
+       
        p = p -> next;
+       temp = new Node(0);
+       Node * ptr = temp;
+       Node * a= head, * b = p;
+       ;
+       while(a and b){
+           if(a -> data < b -> data){
+               Node * t = new Node(a->data);
+               ptr -> bottom = t;
+               a = a -> bottom;
+           }else{
+               Node* t = new Node(b -> data);
+               ptr -> bottom = t;
+               b = b->bottom;
+           }
+           ptr = ptr -> bottom;
+       }
+       if(a)ptr -> bottom = a;
+       if(b) ptr -> bottom = b;
+       head = temp -> bottom;
    }
-   sort(v.begin(), v.end());
-   Node * dummy = new Node(0);
-   p = dummy;
-   for(auto & a : v){
-       Node * temp = new Node(a);
-       p -> bottom = temp;
-       p = p -> bottom;
-   }
-   return dummy -> bottom;
+   return head;
 }
 
