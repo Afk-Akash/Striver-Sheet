@@ -20,22 +20,14 @@ public:
         }
         k %= n;
         if(k==0) return head;
-        int copy = k+1;
+        int copy = n - k;
         ListNode* fast = head, *slow = head;
-        while(copy--){
-            fast = fast -> next;
-        }
-        while(fast){
-            fast = fast -> next;
-            slow = slow -> next;
-        }
+        while(--copy)slow = slow -> next;
         
-        ListNode* temp = slow;
-        slow = slow -> next;
-        temp -> next = NULL;
-        temp = slow;
-     
         p -> next = head;
-        return slow;
+        head = slow -> next;
+        slow -> next = NULL;
+     
+        return head;
     }
 };
