@@ -7,7 +7,7 @@ public:
         return ans;
     }
     
-    void fun(int ind, vector<int> & candidates, int  k , vector<int> & ds, vector<vector<int>> & ans){
+    void fun(int ind, vector<int> & candidates, int & k , vector<int> & ds, vector<vector<int>> & ans){
         if(ind == candidates.size()){
             if(k == 0) ans.push_back(ds);
             return ;
@@ -16,8 +16,10 @@ public:
         fun(ind + 1, candidates, k, ds, ans);
         if(candidates[ind] <= k){
             ds.push_back(candidates[ind]);
-            fun(ind, candidates, k - candidates[ind], ds, ans);
+            k -= candidates[ind];
+            fun(ind, candidates, k , ds, ans);
             ds.pop_back();
+            k += candidates[ind];
         }
     }
 };
