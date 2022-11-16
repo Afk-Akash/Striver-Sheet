@@ -13,8 +13,9 @@ public:
         int i = 0, j = n;
         while(i <= j){
             int mid = (i + j*1LL) >> 1;
-            if(guess(mid)==-1)j = mid - 1;
-            else if(guess(mid) == 1)i = mid + 1;
+            int k = guess(mid);
+            if(k==-1)j = mid - 1;
+            else if(k == 1)i = mid + 1;
             else return mid;
         }
         return 0;
