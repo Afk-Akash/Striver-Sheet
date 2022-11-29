@@ -1,6 +1,7 @@
 class RandomizedSet {
-    unordered_set<int> set;
+    unordered_map<int, int> mpp;
     int size;
+    vector<int> v;
 public:
     RandomizedSet() {
         size = 0;
@@ -8,9 +9,10 @@ public:
     
     bool insert(int val) {
         bool flag = false;
-        if(set.find(val) == set.end()) {
+        if(mpp.find(val) == mpp.end()) {
             flag = true;
-            set.insert(val);
+            mpp[val] = size;
+            v.push_back(val);
             size++;
         }
         
@@ -20,20 +22,22 @@ public:
     bool remove(int val) {
         bool flag = false;
         
-        if(set.find(val) != set.end()) 
+        if(mpp.find(val) != mpp.end()) 
         {
             size--;
+            int last = v.back();
+            v[mpp[val]] = last;
+            v.pop_back();
+            mpp[last] = mpp[val];
             flag = true;
-            set.erase(val);
+            mpp.erase(val);
         }
         return flag;
     }
     
     int getRandom() {
         int rand = random()%size;
-        auto it = set.begin();
-        while(rand--)it++;
-        return *it;
+        return v[rand];
     }
 };
 
