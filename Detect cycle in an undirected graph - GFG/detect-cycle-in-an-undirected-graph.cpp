@@ -10,20 +10,22 @@ class Solution {
         vector<bool> vis(V, false);
         for(int i = 0; i < V; i++){
             if(vis[i] == false){
-                queue<pair<int,int>> q;
-                q.push({i,-1});
                 vis[i] = true;
-                while(q.size()){
-                    auto top = q.front();
-                    q.pop();
-                    for(auto & a : adj[top.first]){
-                        if(vis[a] == 1 and top.second == a)continue;
-                        if(vis[a]) return true;
-                        q.push({a, top.first});
-                        vis[a] = true;
-                    }
-                }
+                if(dfs(i, adj, vis, -1)) return true;
             }
+        }
+        return false;
+        
+    }
+    
+    bool dfs(int node, vector<int> adj[], vector<bool> &vis, int pre){
+        // if(vis[node] == true and pre == node);
+        
+        for(auto & a : adj[node]){
+            if(vis[a] == true and a == pre)continue;
+            if(vis[a] == true) return true;
+            vis[a] = true;
+            if(dfs(a, adj, vis, node)) return true;
         }
         return false;
     }
