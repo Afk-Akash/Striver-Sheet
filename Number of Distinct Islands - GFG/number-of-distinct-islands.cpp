@@ -13,9 +13,15 @@ class Solution {
    bool isvalid(int i, int j, int x, int y){
        return i < x and j < y and i >= 0 and j >= 0;
    }
+   pair<int,int> sub(pair<int,int> a, pair<int,int> b){
+       pair<int,int> c;
+       c.first = a.first - b.first;
+       c.second = a.second - b.second;
+       return c;
+   }
   public:
     int countDistinctIslands(vector<vector<int>>& grid) {
-        set<vector<vector<pair<int,int>>>> set;
+        set<vector<pair<int,int>>> set;
         int ans = 0;
         int row = grid.size(), col = grid.back().size();
         for(int  i = 0; i < row; i++){
@@ -24,13 +30,14 @@ class Solution {
                     grid[i][j] = 0;
                     queue<pair<int,int>> q;
                     q.push({i,j});
-                    vector<vector<pair<int,int>>> vv;
+                    vector<pair<int,int>> vv;
+                    pair<int,int> base = {i,j};
                     
                     while(q.size()){
                         int sz = q.size();
-                        vector<pair<int,int>> v;
                         while(sz--){
                             auto top = q.front();
+                            vv.push_back(sub(top,base));
                             q.pop();
                             for(int k = 0; k < 4; k++){
                                 auto d = dir[k];
@@ -38,22 +45,17 @@ class Solution {
                                 if(isvalid(x, y, row, col) and grid[x][y] == 1){
                                     grid[x][y] = 0;
                                     q.push({x,y});
-                                    v.push_back({sz,k});
+
                                 }
                             }
                         }
-                        vv.push_back(v);
                     }
                     if(set.find(vv) == set.end())ans++;
                     set.insert(vv);
                 }
             }
         }
-        // for(auto &vvp : set){
-        //     for(auto &vp : vvp){
-        //         for(auto &p : vp){cout<<p.first<<" "<<p.second<<"    ";}cout<<endl;
-        //     }cout<<1<<endl;
-        // }
+        
         return ans;
     }
 };
