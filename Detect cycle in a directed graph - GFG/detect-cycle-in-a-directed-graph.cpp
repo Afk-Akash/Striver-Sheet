@@ -13,7 +13,7 @@ class Solution {
         }
         queue<int> q;
         for(int ii = 0; ii < V; ii++)if(!in[ii])q.push(ii);
-        int k = 1;
+        int k = 0;
         vector<int> topo;
         while(q.size()){
             auto top = q.front();
@@ -25,7 +25,8 @@ class Solution {
                 if(!in[edge])q.push(edge);
             }
         }
-        return k !
+        // cout<<V;
+        return k != V;
         return topo.size() != V;
         for(auto & a : in)if(a)return 1;
         return false;
