@@ -24,7 +24,9 @@ class Solution
             for(auto & edge : adj[top.second]){
                 int upcomingNode = edge[0], price = edge[1];
                  if(ans[upcomingNode] > cost + price){
+                     if(ans[upcomingNode] != INT_MAX) set.erase({ans[upcomingNode], upcomingNode});
                      ans[upcomingNode] = cost + price;
+                     
                      set.insert({ans[upcomingNode], upcomingNode});
                  }
                 
