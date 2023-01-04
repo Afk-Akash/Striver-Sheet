@@ -13,17 +13,19 @@ class Solution
         vector<int> ans(V,INT_MAX);
         ans[S] = 0;
         priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+        set<pair<int,int>> set;
+        set.insert({0,S});
         pq.push({0,S});
         
-        while(pq.size()){
-            pair<int,int> top = pq.top();
-            pq.pop();
+        while(set.size()){
+            pair<int,int> top = *set.begin();
+            set.erase(top);
             int cost = top.first;
             for(auto & edge : adj[top.second]){
                 int upcomingNode = edge[0], price = edge[1];
                  if(ans[upcomingNode] > cost + price){
                      ans[upcomingNode] = cost + price;
-                     pq.push({ans[upcomingNode], upcomingNode});
+                     set.insert({ans[upcomingNode], upcomingNode});
                  }
                 
             }
