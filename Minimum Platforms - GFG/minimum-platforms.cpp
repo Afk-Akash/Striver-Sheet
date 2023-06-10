@@ -11,26 +11,30 @@ class Solution{
 
     int findPlatform(int arr[], int dep[], int n)
     {
-        vector<int> time(2401, 0);
-        for(int i = 0; i < n; i++){
-            time[arr[i]] += 1;
-            time[dep[i]+1] -= 1;
+        sort(arr, arr+n);
+        sort(dep, dep+n);
         
+        int ans = 1, cnt = 1;
+        int i = 1, j = 0;
+        
+        
+        while(i < n){
+            while(i < n and arr[i] <= dep[j]){
+                cnt++;
+                ans = max(ans,cnt);
+                i++;
+            }
+            while(dep[j] < arr[i]){
+                j++;
+                cnt--;
+            }
         }
-        
-        for(int i = 1; i < 2401; i++){
-            time[i] += time[i-1];
-        }
-        
-        int ans = *max_element(time.begin(), time.end());
         
         return ans;
     	
     }
     
-    static bool cmp(pair<int,int> &a , pair<int,int> &b){
-        return a.second < b.second;
-    }
+    
 };
 
 
