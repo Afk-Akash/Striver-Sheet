@@ -12,23 +12,22 @@ class Solution{
     public:
     int maxLen(vector<int>&A, int n)
     {   
-        vector<int> pre(1,A[0]);
-        for(int i = 1; i < n; i++){
-            pre.push_back(pre.back() + A[i]);
-        }
-        // if(pre.back() == 0) return n;
         unordered_map<int,int> mp;
+        // Your code here
+        vector<int> v(1, A[0]);
+        mp[A[0]] = 0;
         mp[0] = -1;
+        for(int i = 1; i < n; i++){
+            v.push_back(v.back() + A[i]);
+            if(!mp.count(v.back()))mp[v.back()] = i;
+        }
         int ans = 0;
         for(int i = 0; i < n; i++){
-            if(mp.find(pre[i]) != mp.end()){
-                ans = max(ans, i - mp[pre[i]]);
-                // cout<< " k ";pre[i]-
-                continue;
-            }
-            mp[pre[i]] = i;
+            ans = max(ans, i - mp[v[i]]);
         }
+        
         return ans;
+        
     }
 };
 
